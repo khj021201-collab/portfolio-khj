@@ -55,7 +55,7 @@ ON CONFLICT(id) DO UPDATE SET
 INSERT INTO experiences (id, category, title, summary, tags, result, sort_order)
 VALUES (
   'food-safety-paper',
-  '연구·논문',
+  '공모전',
   '식품안전 포장 주제 연구',
   '식품안전 논문 공모전에서 포장 관련 주제를 탐구하고 연구 내용을 발전시켰습니다.',
   '["식품안전","포장","자료 조사"]',

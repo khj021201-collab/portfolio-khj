@@ -8,13 +8,14 @@
     "start": "node server.js",
     "start:static": "node static-server.js",
     "db:init": "node scripts/init-db.js",
-    "test": "node --test",
+    "test": "node --test test/database.test.js",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "d1:create": "wrangler d1 create portfolio-khj",
     "d1:migrate": "wrangler d1 migrations apply portfolio-khj --remote",
     "d1:seed:generate": "node scripts/seed-d1.js",
-    "d1:seed": "wrangler d1 execute portfolio-khj --remote --file migrations/0002_seed_experiences.sql"
+    "d1:seed": "wrangler d1 execute portfolio-khj --remote --file migrations/0002_seed_experiences.sql",
+    "test:worker": "node --test test/qna.test.cjs"
   },
   "dependencies": {
     "express": "^5.3.0"

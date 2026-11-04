@@ -1,14 +1,158 @@
-﻿[
- {"id":"factory-training","category":"현장 경험","title":"소스·분말 제품 제조 현장 근무","summary":"소스·분말 식품공장에서 2개월간 생산 현장에서 근무하며 원료 투입부터 생산, 포장까지 제조공정을 경험했습니다.","tags":["원료 투입","생산 공정","포장","제조 현장"],"result":"2개월 근무","sortOrder":1},
- {"id":"banana-blossom-candy","category":"연구·논문","title":"바나나꽃 활용 기능성 캔디","summary":"바나나꽃의 기능적 특성을 탐색하고 캔디 제품 적용 연구를 진행하며 실험·분석을 수행하고 있습니다.","tags":["기능성 원료","제품 개발","실험·분석"],"result":"졸업논문 진행 중","sortOrder":2},
- {"id":"meat-freshness-display","category":"공모전","title":"육류 신선도 확인 디스플레이","summary":"부패 가스 포집과 금 이온 색 변화를 이용해 식품 안전성을 확인하는 기계 및 포장지 아이디어를 제안했습니다.","tags":["식품 포장","안전성 표시","아이디어 기획"],"result":"디스플레이 분야 공모전 입상","sortOrder":3},
- {"id":"food-safety-paper","category":"연구·논문","title":"식품안전 포장 주제 연구","summary":"식품안전 논문 공모전에서 포장 관련 주제를 탐구하고 연구 내용을 발전시켰습니다.","tags":["식품안전","포장","자료 조사"],"result":"2026 본선 진출","sortOrder":4},
- {"id":"ai-control-dashboard","category":"교육","title":"AI 관제 대시보드 교육","summary":"1개월 교육에서 AI의 기본 개념과 실무에 적용할 수 있는 AI 도구 활용을 배웠습니다.","tags":["AI 기초","AI 도구","실무 적용"],"result":"1개월 교육 이수","sortOrder":5},
- {"id":"department-promotion","category":"공모전","title":"식품공학과 홍보 콘텐츠","summary":"전공의 특성과 가치를 전달하는 홍보 아이디어를 기획하고 결과물로 발전시켰습니다.","tags":["콘텐츠 기획","전공 홍보"],"result":"커리어넷 학과 홍보 공모전 입상","sortOrder":6},
- {"id":"admissions-assistant","category":"조직·협업","title":"단국대학교 입학팀 근로장학생","summary":"입학설명회와 실기고사 등 입학 관련 행사를 지원했습니다. 행사 준비와 현장 안내, 문의 응대를 맡으며 사전 확인과 정확한 안내의 중요성을 배웠습니다.","tags":["행사 운영","현장 안내","사전 준비"],"result":"약 2년 근무","sortOrder":7},
- {"id":"student-council-planning","category":"조직·협업","title":"식품공학과 학생회 기획부장","summary":"학과 행사와 학생회 활동을 기획하고 운영하며 구성원과 일정을 조율하고 맡은 업무를 실행했습니다.","tags":["행사 기획","조직 운영","협업"],"result":"2025 활동","sortOrder":8},
- {"id":"hitejinro-supporters","category":"조직·협업","title":"하이트진로 서포터즈","summary":"기업과 소비자를 연결하는 서포터즈 홍보 활동에 참여했습니다.","tags":["기업 홍보","콘텐츠","소통"],"result":"대외활동","sortOrder":9},
- {"id":"c-anchor-planning","category":"조직·협업","title":"C-앵커사업단 서포터즈 기획팀장","summary":"교내 C-앵커사업단 서포터즈 기획팀장으로 활동하며 팀 기획과 운영을 맡고 있습니다.","tags":["기획","팀 리딩","운영"],"result":"2026 활동","sortOrder":10},
- {"id":"tennis-treasurer","category":"조직·협업","title":"테니스 동아리 총무","summary":"동아리 총무로 활동하며 구성원과 운영을 지원했습니다. 테니스는 꾸준히 이어가고 있는 취미입니다.","tags":["동아리 운영","소통","테니스"],"result":"총무 활동","sortOrder":11},
- {"id":"military-driver","category":"조직·협업","title":"고위급 인사 의전 운전병","summary":"군 복무 중 장성 및 장관 등 고위급 인사의 의전 운전 임무를 수행하며 시간 준수와 사전 확인, 책임감을 배웠습니다.","tags":["책임감","정확성","사전 확인"],"result":"군 복무","sortOrder":12}
+[
+  {
+    "id": "factory-training",
+    "category": "현장 경험",
+    "title": "소스·분말 제품 제조 현장 근무",
+    "summary": "소스·분말 식품공장에서 2개월간 생산 현장에서 근무하며 원료 투입부터 생산, 포장까지 제조공정을 경험했습니다.",
+    "tags": [
+      "원료 투입",
+      "생산 공정",
+      "포장",
+      "제조 현장"
+    ],
+    "result": "2개월 근무",
+    "sortOrder": 1
+  },
+  {
+    "id": "banana-blossom-candy",
+    "category": "연구·논문",
+    "title": "바나나꽃 활용 기능성 캔디",
+    "summary": "바나나꽃의 기능적 특성을 탐색하고 캔디 제품 적용 연구를 진행하며 실험·분석을 수행하고 있습니다.",
+    "tags": [
+      "기능성 원료",
+      "제품 개발",
+      "실험·분석"
+    ],
+    "result": "졸업논문 진행 중",
+    "sortOrder": 2
+  },
+  {
+    "id": "meat-freshness-display",
+    "category": "공모전",
+    "title": "육류 신선도 확인 디스플레이",
+    "summary": "부패 가스 포집과 금 이온 색 변화를 이용해 식품 안전성을 확인하는 기계 및 포장지 아이디어를 제안했습니다.",
+    "tags": [
+      "식품 포장",
+      "안전성 표시",
+      "아이디어 기획"
+    ],
+    "result": "디스플레이 분야 공모전 입상",
+    "sortOrder": 3
+  },
+  {
+    "id": "food-safety-paper",
+    "category": "공모전",
+    "title": "식품안전 포장 주제 연구",
+    "summary": "식품안전 논문 공모전에서 포장 관련 주제를 탐구하고 연구 내용을 발전시켰습니다.",
+    "tags": [
+      "식품안전",
+      "포장",
+      "자료 조사"
+    ],
+    "result": "2026 본선 진출",
+    "sortOrder": 4
+  },
+  {
+    "id": "ai-control-dashboard",
+    "category": "교육",
+    "title": "AI 관제 대시보드 교육",
+    "summary": "1개월 교육에서 AI의 기본 개념과 실무에 적용할 수 있는 AI 도구 활용을 배웠습니다.",
+    "tags": [
+      "AI 기초",
+      "AI 도구",
+      "실무 적용"
+    ],
+    "result": "1개월 교육 이수",
+    "sortOrder": 5
+  },
+  {
+    "id": "department-promotion",
+    "category": "공모전",
+    "title": "식품공학과 홍보 콘텐츠",
+    "summary": "전공의 특성과 가치를 전달하는 홍보 아이디어를 기획하고 결과물로 발전시켰습니다.",
+    "tags": [
+      "콘텐츠 기획",
+      "전공 홍보"
+    ],
+    "result": "커리어넷 학과 홍보 공모전 입상",
+    "sortOrder": 6
+  },
+  {
+    "id": "admissions-assistant",
+    "category": "조직·협업",
+    "title": "단국대학교 입학팀 근로장학생",
+    "summary": "입학설명회와 실기고사 등 입학 관련 행사를 지원했습니다. 행사 준비와 현장 안내, 문의 응대를 맡으며 사전 확인과 정확한 안내의 중요성을 배웠습니다.",
+    "tags": [
+      "행사 운영",
+      "현장 안내",
+      "사전 준비"
+    ],
+    "result": "약 2년 근무",
+    "sortOrder": 7
+  },
+  {
+    "id": "student-council-planning",
+    "category": "조직·협업",
+    "title": "식품공학과 학생회 기획부장",
+    "summary": "학과 행사와 학생회 활동을 기획하고 운영하며 구성원과 일정을 조율하고 맡은 업무를 실행했습니다.",
+    "tags": [
+      "행사 기획",
+      "조직 운영",
+      "협업"
+    ],
+    "result": "2025 활동",
+    "sortOrder": 8
+  },
+  {
+    "id": "hitejinro-supporters",
+    "category": "조직·협업",
+    "title": "하이트진로 서포터즈",
+    "summary": "기업과 소비자를 연결하는 서포터즈 홍보 활동에 참여했습니다.",
+    "tags": [
+      "기업 홍보",
+      "콘텐츠",
+      "소통"
+    ],
+    "result": "대외활동",
+    "sortOrder": 9
+  },
+  {
+    "id": "c-anchor-planning",
+    "category": "조직·협업",
+    "title": "C-앵커사업단 서포터즈 기획팀장",
+    "summary": "교내 C-앵커사업단 서포터즈 기획팀장으로 활동하며 팀 기획과 운영을 맡고 있습니다.",
+    "tags": [
+      "기획",
+      "팀 리딩",
+      "운영"
+    ],
+    "result": "2026 활동",
+    "sortOrder": 10
+  },
+  {
+    "id": "tennis-treasurer",
+    "category": "조직·협업",
+    "title": "테니스 동아리 총무",
+    "summary": "동아리 총무로 활동하며 구성원과 운영을 지원했습니다. 테니스는 꾸준히 이어가고 있는 취미입니다.",
+    "tags": [
+      "동아리 운영",
+      "소통",
+      "테니스"
+    ],
+    "result": "총무 활동",
+    "sortOrder": 11
+  },
+  {
+    "id": "military-driver",
+    "category": "조직·협업",
+    "title": "고위급 인사 의전 운전병",
+    "summary": "군 복무 중 장성 및 장관 등 고위급 인사의 의전 운전 임무를 수행하며 시간 준수와 사전 확인, 책임감을 배웠습니다.",
+    "tags": [
+      "책임감",
+      "정확성",
+      "사전 확인"
+    ],
+    "result": "군 복무",
+    "sortOrder": 12
+  }
 ]
