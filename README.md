@@ -6,7 +6,7 @@
 2. `npm start`
 3. 브라우저에서 http://localhost:3000 열기
 
-경험 목록은 SQLite 데이터베이스(`data/portfolio.sqlite`)에서 읽어옵니다. 데이터베이스 파일은 `.gitignore` 처리되어 GitHub에 올라가지 않습니다. 원본 콘텐츠는 `scripts/experiences.json`에 관리하며 `npm run db:init`으로 로컬 DB를 다시 초기화할 수 있습니다.
+경험 목록은 설치된 SQLite CLI(`sqlite3.exe`)를 Node의 `child_process.spawn`으로 호출해 `data/portfolio.sqlite`에서 읽어옵니다. 네이티브 Node SQLite 모듈은 사용하지 않습니다. DB 파일은 `.gitignore` 처리되어 GitHub에 올라가지 않습니다. 원본 콘텐츠는 `scripts/experiences.json`에 관리하며 `npm run db:init`으로 로컬 DB를 다시 초기화할 수 있습니다. SQLite CLI 경로를 자동으로 찾지 못하는 환경에서는 `SQLITE3_PATH` 환경 변수에 `sqlite3.exe` 전체 경로를 지정할 수 있습니다.
 
 경험 섹션에서는 카테고리 필터와 키워드 검색을 사용할 수 있습니다.
 
