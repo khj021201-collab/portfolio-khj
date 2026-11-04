@@ -1,13 +1,21 @@
-# 시스템 파일
+﻿# System files
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# 에디터/IDE
+# Editors
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# node_modules
-node_modules/
+# Node dependencies
+/node_modules/
+
+# Local SQLite databases are generated locally and are never committed
+/data/*.sqlite
+/data/*.db
+/data/*.db-journal
+
+# Local secrets
+.env
