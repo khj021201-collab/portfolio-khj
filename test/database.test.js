@@ -9,7 +9,9 @@ test('SQLite CLI initializes experience data and supports filtering/search', asy
   const tempDatabase = path.join(os.tmpdir(), `portfolio-test-${process.pid}-${Date.now()}.sqlite`);
   try {
     const { databasePath } = await createApp(tempDatabase);
-    assert.equal((await queryExperiences(databasePath)).length, 11);
+    assert.equal((await queryExperiences(databasePath)).length, 12);
+    assert.equal((await queryExperiences(databasePath, '교육')).length, 1);
+    assert.match((await queryExperiences(databasePath, '교육'))[0].title, /AI 관제 대시보드/);
     const organizationItems = await queryExperiences(databasePath, '조직·협업');
     assert.ok(organizationItems.some(({title}) => title === '단국대학교 입학팀 근로장학생'));
     assert.ok(organizationItems.some(({title}) => title === '식품공학과 학생회 기획부장'));
@@ -18,7 +20,7 @@ test('SQLite CLI initializes experience data and supports filtering/search', asy
     assert.equal((await queryExperiences(databasePath, '현장 경험')).length, 1);
     assert.match((await queryExperiences(databasePath, 'all', '바나나'))[0].title, /바나나꽃/);
     assert.deepEqual(await queryExperiences(databasePath, 'all', 'nothing'), []);
-    assert.equal((await queryCategories(databasePath)).length, 4);
+    assert.equal((await queryCategories(databasePath)).length, 5);
   } finally {
     await fs.rm(tempDatabase, { force: true });
   }
