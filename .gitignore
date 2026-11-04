@@ -1,0 +1,13 @@
+# 시스템 파일
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 에디터/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# node_modules
+node_modules/
