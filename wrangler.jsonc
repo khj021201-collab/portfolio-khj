@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portfolio-khj",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-11-04",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "portfolio-khj",
+      "database_id": "15aeda08-048e-44c5-989a-8e3da4295e9d",
+      "migrations_dir": "migrations"
+    }
+  ]
+}

@@ -1,15 +1,23 @@
 ﻿# 식품 QC·QA 신입 포트폴리오
 
-## 로컬에서 SQLite 동적 포트폴리오 실행
+## 공개 사이트: Cloudflare Workers + D1
 
-1. Node.js 설치 후 프로젝트 폴더에서 `npm install`
-2. `npm start`
-3. 브라우저에서 http://localhost:3000 열기
+https://portfolio-khj.khj021201.workers.dev
 
-경험 목록은 설치된 SQLite CLI(`sqlite3.exe`)를 Node의 `child_process.spawn`으로 호출해 `data/portfolio.sqlite`에서 읽어옵니다. 네이티브 Node SQLite 모듈은 사용하지 않습니다. DB 파일은 `.gitignore` 처리되어 GitHub에 올라가지 않습니다. 원본 콘텐츠는 `scripts/experiences.json`에 관리하며 `npm run db:init`으로 로컬 DB를 다시 초기화할 수 있습니다. SQLite CLI 경로를 자동으로 찾지 못하는 환경에서는 `SQLITE3_PATH` 환경 변수에 `sqlite3.exe` 전체 경로를 지정할 수 있습니다.
+`src/worker.js`가 D1 기반 API(`/api/health`, `/api/experiences`, `/api/categories`)를 제공하고 `public/` 파일을 정적 assets로 제공합니다. `wrangler.jsonc`는 D1 binding과 Worker assets 설정을 담고, `migrations/`에는 스키마 및 초기 경험 데이터가 있습니다.
 
-경험 섹션에서는 카테고리 필터와 키워드 검색을 사용할 수 있습니다.
+```powershell
+npm install
+npm run dev
+npm run deploy
+```
+
+새 경험 데이터를 `scripts/experiences.json`에 반영한 뒤에는 `npm run d1:seed:generate`로 seed SQL을 다시 생성하고, 원격에 적용해야 합니다.
 
 ## GitHub Pages 정적 버전
 
-GitHub Pages에서는 Node/SQLite 백엔드가 실행되지 않습니다. 저장소 루트의 HTML은 정적 버전으로 보낼 안내 페이지이며, `public/`은 같은 검색·필터 동작을 JSON 정적 데이터로 제공하도록 구성되어 있습니다. 실제 동적 SQLite API를 공개 배포하려면 별도의 Node 호스팅 서비스가 필요합니다.
+GitHub Pages는 Worker/D1 API를 실행할 수 없으므로 `public/fallback-data.js` 정적 데이터를 사용합니다. 동적 D1 버전은 위 Cloudflare Workers URL에서 확인할 수 있습니다.
+
+## 기존 로컬 Node/SQLite 개발
+
+로컬 Express API와 SQLite CLI는 `npm start`로 실행할 수 있습니다. SQLite CLI가 PATH에서 검색되지 않는 경우 `SQLITE3_PATH` 환경 변수에 `sqlite3.exe` 경로를 설정하세요.

@@ -17,5 +17,9 @@ desktop.ini
 /data/*.db
 /data/*.db-journal
 
+# Wrangler local state and logs
+.wrangler/
+*.log
+
 # Local secrets
 .env

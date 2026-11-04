@@ -1,0 +1,83 @@
+const JSON_HEADERS = {
+  'content-type': 'application/json; charset=utf-8',
+  'cache-control': 'public, max-age=60, stale-while-revalidate=300'
+};
+
+function jsonResponse(data, init = {}) {
+  return new Response(JSON.stringify(data), {
+    ...init,
+    headers: { ...JSON_HEADERS, ...(init.headers || {}) }
+  });
+}
+
+function parseTags(value) {
+  try {
+    return JSON.parse(value);
+  } catch {
+    return [];
+  }
+}
+
+async function getExperiences(db, category, search) {
+  const conditions = [];
+  const bindings = [];
+
+  if (category && category !== 'all') {
+    conditions.push('category = ?');
+    bindings.push(category);
+  }
+  if (search) {
+    const term = `%${search.replace(/[\\%_]/g, '\\$&')}%`;
+    conditions.push('(title LIKE ? ESCAPE \'\\\' OR summary LIKE ? ESCAPE \'\\\' OR tags LIKE ? ESCAPE \'\\\')');
+    bindings.push(term, term, term);
+  }
+
+  const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+  const { results } = await db.prepare(
+    `SELECT id, category, title, summary, tags, result, sort_order
+     FROM experiences ${where}
+     ORDER BY sort_order, id`
+  ).bind(...bindings).all();
+
+  return results.map((row) => ({ ...row, tags: parseTags(row.tags) }));
+}
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+
+    if (url.pathname === '/api/health') {
+      try {
+        await env.DB.prepare('SELECT 1').first();
+        return jsonResponse({ ok: true, database: 'cloudflare-d1' });
+      } catch (error) {
+        return jsonResponse({ ok: false, error: 'D1 is not ready' }, { status: 503 });
+      }
+    }
+
+    if (url.pathname === '/api/experiences') {
+      try {
+        const category = (url.searchParams.get('category') || 'all').slice(0, 40);
+        const search = (url.searchParams.get('q') || '').trim().slice(0, 80);
+        return jsonResponse({ experiences: await getExperiences(env.DB, category, search) });
+      } catch (error) {
+        console.error('Failed to load experiences from D1:', error);
+        return jsonResponse({ error: 'Unable to load experiences' }, { status: 500 });
+      }
+    }
+
+    if (url.pathname === '/api/categories') {
+      try {
+        const { results } = await env.DB.prepare(
+          'SELECT DISTINCT category FROM experiences ORDER BY category'
+        ).all();
+        return jsonResponse({ categories: results.map(({ category }) => category) });
+      } catch (error) {
+        console.error('Failed to load experience categories from D1:', error);
+        return jsonResponse({ error: 'Unable to load categories' }, { status: 500 });
+      }
+    }
+
+    return env.ASSETS.fetch(request);
+  }
+};

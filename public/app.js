@@ -16,7 +16,7 @@ function render() {
     return categoryMatch && text.includes(query);
   });
   list.innerHTML = visible.length ? visible.map((record) => `<article class="experience-card"><span class="experience-category">${escapeHtml(record.category)}</span><h3>${escapeHtml(record.title)}</h3><p>${escapeHtml(record.summary)}</p><div class="experience-tags">${record.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}</div><span class="experience-result">${escapeHtml(record.result)}</span></article>`).join('') : '<p class="empty-state">조건에 맞는 경험이 없습니다.</p>';
-  status.textContent = `${visible.length}개의 경험${window.portfolioDatabase ? ' · SQLite에서 불러옴' : ' · 정적 미리보기'}`;
+  status.textContent = `${visible.length}개의 경험${window.portfolioDatabase ? ' · 데이터베이스에서 불러옴' : ' · 정적 미리보기'}`;
 }
 filterButtons.forEach((button) => button.addEventListener('click', () => {activeCategory=button.dataset.category;filterButtons.forEach((item)=>item.classList.toggle('is-active',item===button));render();}));
 search.addEventListener('input',render);
