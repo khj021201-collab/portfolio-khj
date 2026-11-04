@@ -13,7 +13,6 @@ app.get('/api/experiences',async(request,response,next)=>{
  try {const category=typeof request.query.category==='string'?request.query.category:'all';const search=typeof request.query.q==='string'?request.query.q.trim().slice(0,80):'';response.json({experiences:await queryExperiences(databasePath,category,search)});}catch(error){next(error);}
 });
 app.get('/api/categories',async(_request,response,next)=>{try{response.json({categories:await queryCategories(databasePath)});}catch(error){next(error);}});
-app.use(express.static(__dirname,{index:false,dotfiles:'ignore'}));
 app.use(express.static(path.join(__dirname,'public'),{extensions:['html']}));
 app.get('*path',(_request,response)=>response.sendFile(path.join(__dirname,'public','index.html')));
 async function start(){await createApp();databaseReady=Promise.resolve();return app.listen(port,()=>console.log(`Portfolio server running at http://localhost:${port}`));}
