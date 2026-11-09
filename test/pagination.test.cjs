@@ -42,3 +42,18 @@ test('contact background wrapper spans the viewport and keeps inner content cons
  assert.match(css,/\.contact-section\{width:100%;[^}]*background:var\(--pale\)\}/);
  assert.match(css,/\.contact-inner\{max-width:1080px;margin:auto/);
 });
+
+test('Q&A dialog explicitly centers itself despite the global zero-margin reset',()=>{
+ const css=fs.readFileSync(path.join(__dirname,'..','public','style.css'),'utf8');
+ assert.match(css,/\.qna-dialog\{[^}]*position:fixed;inset:0;margin:auto/);
+ assert.match(css,/\.qna-dialog\{[^}]*max-height:calc\(100dvh - 30px\);overflow:auto/);
+});
+
+test('Q&A comment submission uses one delegated handler with an in-flight guard and finally reset',()=>{
+ const source=fs.readFileSync(path.join(__dirname,'..','public','qna.js'),'utf8');
+ assert.equal((source.match(/list\.addEventListener\('submit'/g)||[]).length,1);
+ assert.match(source,/form\.dataset\.submitting==='true'/);
+ assert.match(source,/submitButton\.disabled=true/);
+ assert.match(source,/form\.reset\(\)/);
+ assert.match(source,/finally\{form\.dataset\.submitting='false';if\(submitButton\)submitButton\.disabled=false\}/);
+});
