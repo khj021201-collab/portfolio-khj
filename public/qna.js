@@ -2,6 +2,7 @@ const API='/api/qna';
 const list=document.querySelector('#qna-list');
 const status=document.querySelector('#qna-status');
 const openButton=document.querySelector('#qna-write-open');
+if(!list||!status||!openButton)throw new Error('Q&A page elements are missing.');
 const tokenStoreKey='portfolio-qna-edit-tokens-v1';
 let posts=[];
 function escapeHtml(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
