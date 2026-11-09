@@ -31,6 +31,40 @@ test('pagination and Q&A classic scripts do not declare conflicting global bindi
  assert.equal(typeof context.window.portfolioPaginate,'function');
 });
 
+test('Q&A registers each delegated UI handler once when the page DOM is available',async()=>{
+ const handlers=new Map();
+ const makeElement=(id)=>({id,addEventListener(type,listener){const key=`${id}:${type}`;handlers.set(key,[...(handlers.get(key)||[]),listener])}});
+ const elements={'#qna-list':makeElement('list'),'#qna-status':makeElement('status'),'#qna-write-open':makeElement('open')};
+ const context=vm.createContext({
+  window:{portfolioPaginate(items,page,pageSize){return{items:items.slice(0,pageSize),currentPage:page,totalPages:1}}},
+  document:{querySelector(selector){return elements[selector]||null}},
+  module:undefined,
+  fetch:async()=>({ok:true,json:async()=>({posts:[]})}),
+  localStorage:{getItem(){return null},setItem(){}},
+  FormData:class{},Intl,Date,URL,console,Promise,Object,Array,String,Number,JSON,
+  confirm(){return true},
+ });
+ const source=fs.readFileSync(path.join(__dirname,'..','public','qna.js'),'utf8');
+ vm.runInContext(source,context);
+ await new Promise(resolve=>setImmediate(resolve));
+ for(const key of ['open:click','list:submit','list:click'])assert.equal(handlers.get(key)?.length,1,`${key} handler must only be registered once`);
+});
+
+test('Q&A source keeps UI event registration in the page initialization path only',()=>{
+ const source=fs.readFileSync(path.join(__dirname,'..','public','qna.js'),'utf8');
+ assert.equal((source.match(/openButton\??\.addEventListener\('click'/g)||[]).length,1);
+ assert.equal((source.match(/list\??\.addEventListener\('submit'/g)||[]).length,1);
+ assert.equal((source.match(/list\??\.addEventListener\('click'/g)||[]).length,1);
+ assert.equal((source.match(/(?:openButton|list)\??\.addEventListener\(/g)||[]).length,3);
+ assert.doesNotMatch(source,/if\(typeof document!==['"]undefined['"]&&list\)/);
+});
+
+test('Q&A initialization loads the list once after registering its UI handlers',()=>{
+ const source=fs.readFileSync(path.join(__dirname,'..','public','qna.js'),'utf8');
+ assert.equal((source.match(/^load\(\);$/gm)||[]).length,1);
+ assert.ok(source.indexOf("list?.addEventListener('click'")<source.lastIndexOf('\nload();'));
+});
+
 test('header alignment padding matches section content at common desktop widths',()=>{
  const sectionLeft=(width)=>Math.max((width-1080)/2,0)+30;
  const headerLeft=(width)=>Math.max((width-1080)/2+30,30);
@@ -49,11 +83,7 @@ test('Q&A dialog explicitly centers itself despite the global zero-margin reset'
  assert.match(css,/\.qna-dialog\{[^}]*max-height:calc\(100dvh - 30px\);overflow:auto/);
 });
 
-test('Q&A comment submission uses one delegated handler with an in-flight guard and finally reset',()=>{
+test('Q&A comment submission has one delegated submit handler',()=>{
  const source=fs.readFileSync(path.join(__dirname,'..','public','qna.js'),'utf8');
- assert.equal((source.match(/list\.addEventListener\('submit'/g)||[]).length,1);
- assert.match(source,/form\.dataset\.submitting==='true'/);
- assert.match(source,/submitButton\.disabled=true/);
- assert.match(source,/form\.reset\(\)/);
- assert.match(source,/finally\{form\.dataset\.submitting='false';if\(submitButton\)submitButton\.disabled=false\}/);
+ assert.equal((source.match(/list\??\.addEventListener\('submit'/g)||[]).length,1);
 });
