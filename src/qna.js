@@ -12,12 +12,10 @@ function json(data, status = 200, headers = {}) {
   });
 }
 
-function cleanText(value) {
+function cleanText(value, { singleLine = false } = {}) {
   if (typeof value !== 'string') return '';
-  return value
-    .replace(/[\u200B-\u200D\uFEFF\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '')
-    .replace(/[\r\n]+/g, ' ')
-    .trim();
+  const cleaned = value.replace(/[\u200B-\u200D\uFEFF\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
+  return (singleLine ? cleaned.replace(/[\r\n]+/g, ' ') : cleaned.replace(/\r\n?/g, '\n')).trim();
 }
 
 function validText(value, max, { singleLine = false } = {}) {
@@ -41,7 +39,7 @@ function corsHeaders(request, env) {
 
 function originAllowed(request, env) {
   const origin = request.headers.get('Origin');
-  if (!origin || origin === env.QNA_ALLOWED_ORIGIN) return true;
+  if (origin && origin === env.QNA_ALLOWED_ORIGIN) return true;
   try {
     const parsed = new URL(origin);
     return env.ENVIRONMENT === 'development'
@@ -147,7 +145,7 @@ async function handleQna(request, env, url) {
     }
     try {
       const id = crypto.randomUUID();
-      const title = cleanText(body.title), content = cleanText(body.content), authorName = cleanText(body.authorName);
+      const title = cleanText(body.title, { singleLine: true }), content = cleanText(body.content), authorName = cleanText(body.authorName, { singleLine: true });
       const access = await issueToken(env.QNA_TOKEN_SECRET, id);
       await env.DB.prepare('INSERT INTO qna_posts (id,title,content,author_name,edit_token_hash) VALUES (?,?,?,?,?)')
         .bind(id, title, content, authorName, access.hash).run();
@@ -183,7 +181,7 @@ async function handleQna(request, env, url) {
         return json({ error: '제목·작성자명은 한 줄로, 모든 항목은 표시 가능한 내용으로 입력해 주세요.' }, 400, headers);
       }
       await env.DB.prepare("UPDATE qna_posts SET title=?,content=?,author_name=?,updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now') WHERE id=?")
-        .bind(cleanText(body.title), cleanText(body.content), cleanText(body.authorName), id).run();
+        .bind(cleanText(body.title, { singleLine: true }), cleanText(body.content), cleanText(body.authorName, { singleLine: true }), id).run();
       return json({ ok: true }, 200, headers);
     }
   }
@@ -201,7 +199,7 @@ async function handleQna(request, env, url) {
         return json({ error: '작성자명은 한 줄로, 댓글은 표시 가능한 내용으로 입력해 주세요.' }, 400, headers);
       }
       const id = crypto.randomUUID();
-      const content = cleanText(body.content), authorName = cleanText(body.authorName);
+      const content = cleanText(body.content), authorName = cleanText(body.authorName, { singleLine: true });
       const access = await issueToken(env.QNA_TOKEN_SECRET, id);
       await env.DB.prepare('INSERT INTO qna_comments (id,post_id,content,author_name,edit_token_hash) VALUES (?,?,?,?,?)')
         .bind(id, postId, content, authorName, access.hash).run();
@@ -227,7 +225,7 @@ async function handleQna(request, env, url) {
       return json({ error: '작성자명은 한 줄로, 댓글은 표시 가능한 내용으로 입력해 주세요.' }, 400, headers);
     }
     await env.DB.prepare("UPDATE qna_comments SET content=?,author_name=?,updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now') WHERE id=?")
-      .bind(cleanText(body.content), cleanText(body.authorName), id).run();
+      .bind(cleanText(body.content), cleanText(body.authorName, { singleLine: true }), id).run();
     return json({ ok: true }, 200, headers);
   }
 
