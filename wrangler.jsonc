@@ -18,5 +18,22 @@
       "database_id": "15aeda08-048e-44c5-989a-8e3da4295e9d",
       "migrations_dir": "migrations"
     }
-  ]
+  ],
+  "env": {
+    "development": {
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "portfolio-khj",
+          "database_id": "15aeda08-048e-44c5-989a-8e3da4295e9d",
+          "migrations_dir": "migrations"
+        }
+      ],
+      "vars": {
+        "QNA_ALLOWED_ORIGIN": "http://localhost:8787",
+        "ENVIRONMENT": "development",
+        "QNA_TOKEN_SECRET": "local-only-qna-secret-do-not-use-in-production"
+      }
+    }
+  }
 }
