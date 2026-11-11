@@ -77,10 +77,22 @@ test('contact background wrapper spans the viewport and keeps inner content cons
  assert.match(css,/\.contact-inner\{max-width:1080px;margin:auto/);
 });
 
-test('portfolio email links use the current contact address',()=>{
+test('portfolio email buttons open a contact dialog containing the current address',()=>{
  const html=fs.readFileSync(path.join(__dirname,'..','public','index.html'),'utf8');
- assert.equal((html.match(/href="mailto:khj200212@naver\.com"/g)||[]).length,2);
- assert.doesNotMatch(html,/mailto:khj021201@naver\.com/);
+ assert.equal((html.match(/class="button[^\"]*email-popup-open/g)||[]).length,2);
+ assert.match(html,/id="email-dialog"[^>]*aria-labelledby="email-dialog-title"/);
+ assert.match(html,/href="mailto:khj200212@naver\.com">khj200212@naver\.com/);
+ assert.match(html,/class="email-copy-button"/);
+ assert.equal((html.match(/class="email-popup-open" href="mailto:/g)||[]).length,0);
+ assert.doesNotMatch(html,/khj021201@naver\.com/);
+});
+
+test('email dialog supports opening, closing, and clipboard feedback handlers',()=>{
+ const source=fs.readFileSync(path.join(__dirname,'..','public','app.js'),'utf8');
+ assert.match(source,/emailDialog\?\.showModal\(\)/);
+ assert.match(source,/emailDialog\?\.querySelector\('\.email-dialog-close'\)\?\.addEventListener\('click',\(\)=>emailDialog\.close\(\)\)/);
+ assert.match(source,/navigator\.clipboard\.writeText\(email\)/);
+ assert.match(source,/이메일 주소를 복사했습니다/);
 });
 
 test('Q&A dialog explicitly centers itself despite the global zero-margin reset',()=>{

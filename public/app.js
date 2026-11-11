@@ -28,6 +28,11 @@ function renderPagination(container,page,pageCount,onChange){if(!container)retur
 filterButtons.forEach((button) => button.addEventListener('click', () => {activeCategory=button.dataset.category;currentPage=1;filterButtons.forEach((item)=>item.classList.toggle('is-active',item===button));render();}));
 search.addEventListener('input',()=>{currentPage=1;render();});
 document.querySelectorAll('nav a[href^="#"]').forEach((link)=>link.addEventListener('click',(event)=>{const target=document.querySelector(link.getAttribute('href'));if(!target)return;event.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});history.pushState(null,'',link.getAttribute('href'));}));
+const emailDialog=document.querySelector('#email-dialog');
+document.querySelectorAll('.email-popup-open').forEach((button)=>button.addEventListener('click',()=>emailDialog?.showModal()));
+emailDialog?.querySelector('.email-dialog-close')?.addEventListener('click',()=>emailDialog.close());
+emailDialog?.addEventListener('click',(event)=>{if(event.target===emailDialog)emailDialog.close()});
+emailDialog?.querySelector('.email-copy-button')?.addEventListener('click',async()=>{const email=document.querySelector('#contact-email')?.textContent.trim();const status=emailDialog.querySelector('.email-copy-status');if(!email||!status)return;try{await navigator.clipboard.writeText(email);status.textContent='이메일 주소를 복사했습니다.'}catch{status.textContent=`이메일 주소: ${email}`} });
 const year=document.querySelector('#year');if(year)year.textContent=new Date().getFullYear();
 list.innerHTML=Array.from({length:PAGE_SIZE},()=>'<article class="experience-card skeleton-card" aria-hidden="true"><span></span><h3></h3><p></p><p></p><div></div></article>').join('');
 (async()=>{try{const response=await fetch('/api/experiences');if(!response.ok)throw new Error('API unavailable');const data=await response.json();if(Array.isArray(data.experiences)){records=data.experiences;window.portfolioDatabase=true;}}catch{window.portfolioDatabase=false;}render();})();
