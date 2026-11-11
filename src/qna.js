@@ -39,6 +39,7 @@ function corsHeaders(request, env) {
 
 function originAllowed(request, env) {
   const origin = request.headers.get('Origin');
+  if (!origin && request.method === 'GET' && new URL(request.url).pathname === '/api/qna') return true;
   if (origin && origin === env.QNA_ALLOWED_ORIGIN) return true;
   try {
     const parsed = new URL(origin);
