@@ -77,6 +77,12 @@ test('contact background wrapper spans the viewport and keeps inner content cons
  assert.match(css,/\.contact-inner\{max-width:1080px;margin:auto/);
 });
 
+test('portfolio email links use the current contact address',()=>{
+ const html=fs.readFileSync(path.join(__dirname,'..','public','index.html'),'utf8');
+ assert.equal((html.match(/href="mailto:khj200212@naver\.com"/g)||[]).length,2);
+ assert.doesNotMatch(html,/mailto:khj021201@naver\.com/);
+});
+
 test('Q&A dialog explicitly centers itself despite the global zero-margin reset',()=>{
  const css=fs.readFileSync(path.join(__dirname,'..','public','style.css'),'utf8');
  assert.match(css,/\.qna-dialog\{[^}]*position:fixed;inset:0;margin:auto/);
