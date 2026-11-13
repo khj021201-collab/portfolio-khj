@@ -1,0 +1,25 @@
+﻿# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node dependencies
+/node_modules/
+
+# Local SQLite databases are generated locally and are never committed
+/data/*.sqlite
+/data/*.db
+/data/*.db-journal
+
+# Wrangler local state and logs
+.wrangler/
+*.log
+
+# Local secrets
+.env

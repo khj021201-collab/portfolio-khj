@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f7f8f1"/><rect width="18" height="630" fill="#21634c"/>
+  <circle cx="1000" cy="315" r="214" fill="#edf2e9"/><circle cx="1000" cy="315" r="176" fill="none" stroke="#cbd8c8" stroke-width="2"/><circle cx="1000" cy="315" r="143" fill="none" stroke="#cbd8c8" stroke-width="2" stroke-dasharray="5 9"/>
+  <text x="1000" y="354" text-anchor="middle" font-family="Arial,sans-serif" font-size="130" font-weight="700" fill="#21634c">QC</text>
+  <text x="90" y="135" font-family="Arial,sans-serif" font-size="25" font-weight="700" letter-spacing="5" fill="#21634c">FOOD ENGINEERING / QUALITY / SAFETY</text>
+  <text x="90" y="280" font-family="Arial,sans-serif" font-size="64" font-weight="700" fill="#182a24">&#44428;&#54785;&#51452; &#54252;&#53944;&#54260;&#47532;&#50724;</text>
+  <text x="90" y="370" font-family="Arial,sans-serif" font-size="42" font-weight="600" fill="#21634c">&#49885;&#54408; QC&#183;QA &#49888;&#51077; &#51648;&#50896;&#51088;</text>
+  <line x1="90" y1="420" x2="720" y2="420" stroke="#d7ded3" stroke-width="2"/>
+  <text x="90" y="480" font-family="Arial,sans-serif" font-size="25" fill="#65736b">&#45800;&#44397;&#45824;&#54617;&#44368; &#49885;&#54408;&#44277;&#54617;&#44284; &#183; &#49885;&#54408;&#44277;&#51109; &#54788;&#51109; &#44368;&#50977; &#183; &#51320;&#50629;&#45436;&#47928; &#50672;&#44396;</text>
+  <text x="90" y="550" font-family="Arial,sans-serif" font-size="20" font-weight="700" letter-spacing="3" fill="#65736b">QUALITY CONTROL · QUALITY ASSURANCE</text>
+</svg>

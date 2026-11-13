@@ -1,0 +1,39 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portfolio-khj",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-11-04",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application"
+  },
+  "vars": {
+    "QNA_ALLOWED_ORIGIN": "https://portfolio-khj.khj021201.workers.dev"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "portfolio-khj",
+      "database_id": "15aeda08-048e-44c5-989a-8e3da4295e9d",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "env": {
+    "development": {
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "portfolio-khj",
+          "database_id": "15aeda08-048e-44c5-989a-8e3da4295e9d",
+          "migrations_dir": "migrations"
+        }
+      ],
+      "vars": {
+        "QNA_ALLOWED_ORIGIN": "http://localhost:8787",
+        "ENVIRONMENT": "development",
+        "QNA_TOKEN_SECRET": "local-only-qna-secret-do-not-use-in-production"
+      }
+    }
+  }
+}
